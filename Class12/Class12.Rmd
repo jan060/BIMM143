@@ -1,0 +1,35 @@
+---
+title: "Bioinformatics in Drug Discovery and Design"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#In-silico docking of drugs to HIV-1 protease
+
+We will continue with the structure of the HIV-1 protease and its inhibitor, indinavir (PDB ID: 1HSG), and computationally dock drug molecules into the binding site of HIV-1 protease to see how well bioinformatics-based docking can reproduce the crystallographically observed binding pose.
+```{r}
+library(bio3d)
+protease <- get.pdb("1hsg")
+hiv <- read.pdb(protease)
+hiv
+```
+
+What is the name of the two non protein `resid` values in this structure? What does `resid`
+correspond to and how would you get a listing of all `resid` values in this structure? 
+
+* The two non-protein resid values are HOH and MK1. `resid` corresponds to "residue id" and you can access all `resid` with `pdb$atom$resid`.
+
+We want to trim the PDB file so that we produce a protein-only PDB file and a drug (ligand) only PDB file. By using `write.pdb`, these files will automatically be downloaded onto your R studio workspace.
+```{r}
+protein <- atom.select(hiv, "protein", value = TRUE)
+write.pdb(protein, file="1hsg_protein.pdb")
+```
+
+```{r}
+ligand <- atom.select(hiv, "ligand", value = TRUE)
+write.pdb(ligand, file="1hsg_ligand.pdb")
+```
+
