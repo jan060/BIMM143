@@ -1,12 +1,12 @@
-Class06 R Function
+R Function
 ================
 Julie Nguyen
 October 17, 2019
 
-This is H1.
-===========
+This is H1
+==========
 
-This is my work from class 06 in **BIMM143**.
+This is my work from class06 in **BIMM143**.
 
 ``` r
 # This is a comment inside a code chunk.
@@ -15,8 +15,7 @@ plot(1:10)
 
 ![](Class06_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
-Practice reading files (again...)
----------------------------------
+Practice reading files (again...).
 
 ``` r
 read.csv("test1.txt")
@@ -48,6 +47,9 @@ read.table("test3.txt")
     ## 3  3  8  c
     ## 4  4  9  d
     ## 5  5 10  e
+
+Improving analysis code by writing functions
+============================================
 
 ``` r
 add <- function(x, y=1) {
@@ -124,13 +126,12 @@ rescale2(1:10, plot = TRUE)
     ##  [1] 0.0000000 0.1111111 0.2222222 0.3333333 0.4444444 0.5555556 0.6666667
     ##  [8] 0.7777778 0.8888889 1.0000000
 
-Section 2 of Hands-On Sheet.
-============================
+Writing and calling a function
+==============================
 
 Install the **bio3d** package for sequence and structure analysis.
 
 ``` r
-#install.packages("bio3d")
 library(bio3d)
 s1 <- read.pdb("4AKE") # kinase with drug
 ```

@@ -1,5 +1,5 @@
 ---
-title: "Class06 R Function"
+title: "R Function"
 author: "Julie Nguyen"
 date: "October 17, 2019"
 output: github_document
@@ -9,24 +9,24 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#This is H1.
-This is my work from class 06 in **BIMM143**.
+#This is H1
+
+This is my work from class06 in **BIMM143**.
 
 ```{r}
 # This is a comment inside a code chunk.
 plot(1:10)
 ```
 
+Practice reading files (again...).
 
-
-
-
-## Practice reading files (again...)
 ```{r}
 read.csv("test1.txt")
 read.table("test2.txt", sep = "$", header = TRUE)
 read.table("test3.txt")
 ```
+
+#Improving analysis code by writing functions
 
 ```{r}
 add <- function(x, y=1) {
@@ -72,12 +72,11 @@ rescale2 <- function(x, na.rm=TRUE, plot=FALSE) {
 rescale2(1:10, plot = TRUE)
 ```
 
-# Section 2 of Hands-On Sheet.
+#Writing and calling a function
 
 Install the **bio3d** package for sequence and structure analysis.
 
 ```{r}
-#install.packages("bio3d")
 library(bio3d)
 s1 <- read.pdb("4AKE") # kinase with drug
 s2 <- read.pdb("1AKE") # kinase no drug
@@ -92,4 +91,3 @@ plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
 plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
 plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
 ```
-
