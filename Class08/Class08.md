@@ -1,10 +1,10 @@
-Class08
+Introduction to Machine Learning for Bioinformatics
 ================
 Julie Nguyen
 October 24, 2019
 
 K-means Clustering
-------------------
+==================
 
 ``` r
 tmp <- c(rnorm(30,-3), rnorm(30,3))
@@ -23,16 +23,16 @@ k <- kmeans(x, center=2, nstart=20)
 k$cluster
 ```
 
-    ##  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1
-    ## [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+    ##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2
+    ## [36] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
 
 ``` r
 k$center
 ```
 
     ##           x         y
-    ## 1  2.792520 -3.308383
-    ## 2 -3.308383  2.792520
+    ## 1 -2.944875  3.174754
+    ## 2  3.174754 -2.944875
 
 ``` r
 plot(x, col=k$cluster)
@@ -42,9 +42,9 @@ points(k$centers, col="blue", pch=16)
 ![](Class08_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 Hierarchical Clustering
------------------------
+=======================
 
-The hclust() function requires a distance matrix as input. You can get this from the dist() function.
+The `hclust()` function requires a distance matrix as input. You can get this from the `dist()` function.
 
 ``` r
 # First we need to calculate point (dis)similarity
@@ -139,7 +139,7 @@ table(grps)
 
     ## grps
     ##  1  2  3 
-    ## 69 46 35
+    ## 53 47 50
 
 Cross-tabulate (i.e. compare our clustering results with the known answer.)
 
@@ -149,12 +149,12 @@ table(grps, col)
 
     ##     col
     ## grps c1 c2 c3
-    ##    1 50  6 13
-    ##    2  0 44  2
-    ##    3  0  0 35
+    ##    1  3 48  2
+    ##    2 46  0  1
+    ##    3  1  2 47
 
 Principal Component Analysis
-----------------------------
+============================
 
 ``` r
 mydata <- read.csv("https://tinyurl.com/expression-CSV",
@@ -178,7 +178,7 @@ nrow(mydata)
 
     ## [1] 100
 
-Let's do PCA with the **prcomp()** function.
+Let's do PCA with the `prcomp()` function.
 
 ``` r
 pca <- prcomp(t(mydata), scale=TRUE)
@@ -238,8 +238,8 @@ plot(pca$x[,1], pca$x[, 2],
 
 ![](Class08_files/figure-markdown_github/unnamed-chunk-17-2.png)
 
-Hands-on Section
-----------------
+PCA of UK food data
+===================
 
 ``` r
 x <- read.csv("UK_foods.csv")

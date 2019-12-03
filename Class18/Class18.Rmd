@@ -71,12 +71,6 @@ ans <- getResults(query)
 head(ans)
 ```
 
-In RStudio we can now use the View() function to get a feel for the data organization and values in the returned ans object.
-
-```{r}
-View(ans)
-```
-
 #Variant analysis with R
 
 Note we could go to the NCI-GDC web portal and enter the Advanced Search page and then construct a search query to find MAF format somatic mutation files for our ‘TCGA-PAAD’ project.

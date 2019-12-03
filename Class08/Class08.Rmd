@@ -1,5 +1,5 @@
 ---
-title: "Class08"
+title: "Introduction to Machine Learning for Bioinformatics"
 author: "Julie Nguyen"
 date: "October 24, 2019"
 output: github_document
@@ -9,7 +9,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##K-means Clustering
+#K-means Clustering
 ```{r}
 tmp <- c(rnorm(30,-3), rnorm(30,3))
 x <- cbind(x=tmp, y=rev(tmp))
@@ -34,8 +34,8 @@ plot(x, col=k$cluster)
 points(k$centers, col="blue", pch=16)
 ```
 
-##Hierarchical Clustering
-The hclust() function requires a distance matrix as input. You can get this from the dist() function.
+#Hierarchical Clustering
+The `hclust()` function requires a distance matrix as input. You can get this from the `dist()` function.
 
 ```{r}
 # First we need to calculate point (dis)similarity
@@ -96,7 +96,7 @@ Cross-tabulate (i.e. compare our clustering results with the known answer.)
 table(grps, col)
 ```
 
-##Principal Component Analysis
+#Principal Component Analysis
 ```{r}
 mydata <- read.csv("https://tinyurl.com/expression-CSV",
   row.names=1)
@@ -108,7 +108,7 @@ How many genes are in this dataset?
 nrow(mydata)
 ```
 
-Let's do PCA with the **prcomp()** function.
+Let's do PCA with the `prcomp()` function.
 ```{r}
 pca <- prcomp(t(mydata), scale=TRUE)
 attributes(pca)
@@ -145,7 +145,7 @@ plot(pca$x[,1], pca$x[, 2],
             "blue", "blue", "blue", "blue", "blue"))
 ```
 
-##Hands-on Section
+#PCA of UK food data
 ```{r}
 x <- read.csv("UK_foods.csv")
 dim(x)
