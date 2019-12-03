@@ -11,6 +11,7 @@ Examine data from the Tara Ocean project on bacteria in ocean water samples from
 #Set up Cytoscape and R connection
 
 We will use the **igraph** package from CRAN and the **RCy3** pacakage from bioconductor to build and visualize networks of these data.
+
 ```{r}
 #Load packages.
 library(RCy3)
