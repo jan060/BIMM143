@@ -1,4 +1,4 @@
-Class09
+Unsupervised Learning Mini-Project
 ================
 Julie Nguyen
 October 29, 2019
@@ -14,8 +14,8 @@ October 29, 2019
 Unsupervised Learning Analysis of Human Breast Cancer Cells
 ===========================================================
 
-1. Exploratory Data Analysis
-----------------------------
+Exploratory Data Analysis
+-------------------------
 
 Prepare the data of the biopsy results from patients.
 
@@ -140,8 +140,8 @@ length(mean_variables)
 
     ## [1] 10
 
-2. Principal Component Analysis
--------------------------------
+Principal Component Analysis
+----------------------------
 
 Check the mean and standard deviation of the features (i.e. columns) of the wisc.data to determine if the data should be scaled.
 
@@ -262,8 +262,8 @@ plot(wisc.pr$x[, 1], wisc.pr$x[, 3], col = diagnosis,
 
 ![](Class09_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
-3. Hierarchical Clustering
---------------------------
+Hierarchical Clustering
+-----------------------
 
 Scale the `wisc.data` and assign the results to `data.scaled`.
 
@@ -317,8 +317,8 @@ table(wisc.hclust.clusters, diagnosis)
     ##                    3 343  40
     ##                    4   0   2
 
-4. K-means clustering
----------------------
+K-means clustering
+------------------
 
 ### K-means clustering and comparing results
 
@@ -356,8 +356,8 @@ table(wisc.km$cluster, wisc.hclust.clusters)
     ##   1 160   7  20   2
     ##   2  17   0 363   0
 
-5. Combining methods
---------------------
+Combining methods
+-----------------
 
 ### Clustering on PCA results
 
@@ -438,8 +438,8 @@ plot(wisc.pr$x[,1:2], col=g)
 #benign = red, group 2
 ```
 
-7. Prediction
--------------
+Prediction
+----------
 
 We will use the `predict()` function that will take our PCA model from before and the "new cancer cell data" and project that data onto our PCA space.
 

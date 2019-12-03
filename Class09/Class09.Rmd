@@ -1,5 +1,5 @@
 ---
-title: "Class09"
+title: "Unsupervised Learning Mini-Project"
 author: "Julie Nguyen"
 date: "October 29, 2019"
 output: github_document
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #Unsupervised Learning Analysis of Human Breast Cancer Cells
 
-##1. Exploratory Data Analysis
+##Exploratory Data Analysis
 
 Prepare the data of the biopsy results from patients.
 ```{r}
@@ -68,7 +68,7 @@ mean_variables <- grep("_mean", colnames(wisc.df), value = TRUE)
 length(mean_variables)
 ```
 
-##2. Principal Component Analysis
+##Principal Component Analysis
 
 Check the mean and standard deviation of the features (i.e. columns) of the wisc.data to determine if the data should be scaled.
 ```{r}
@@ -117,7 +117,7 @@ plot(wisc.pr$x[, 1], wisc.pr$x[, 3], col = diagnosis,
      xlab = "PC3", ylab = "PC1")
 ```
 
-##3. Hierarchical Clustering
+##Hierarchical Clustering
 
 Scale the `wisc.data` and assign the results to `data.scaled`.
 ```{r}
@@ -154,11 +154,14 @@ We can use the `table()` function to compare the cluster membership to the actua
 table(wisc.hclust.clusters, diagnosis)
 ```
 
-##4. K-means clustering
+##K-means clustering
+
 ###K-means clustering and comparing results
+
 In this section, you will create a k-means clustering model on the Wisconsin breast cancer data and compare the results to the actual diagnoses and the results of your hierarchical clustering model.
 
 Create a k-means model on `wisc.data`, assigning the result to `wisc.km`. Be sure to create 2 clusters, corresponding to the actual number of diagnosis. Also, remember to scale the data (with the `scale()` function) and repeat the algorithm 20 times (by setting setting the value of the `nstart` argument appropriately). Running multiple times such as this will help to find a well performing model.
+
 ```{r}
 wisc.km <- kmeans(scale(wisc.data), centers = 2, nstart = 20)
 ```
@@ -177,8 +180,10 @@ Use the `table()` function to compare the cluster membership of the k-means mode
 table(wisc.km$cluster, wisc.hclust.clusters)
 ```
 
-##5. Combining methods
+##Combining methods
+
 ###Clustering on PCA results
+
 Using the minimum number of principal components required to describe at least 90% of the variability in the data, create a hierarchical clustering model with the linkage `method="ward.D2"`.
 ```{r}
 wisc.pr.hclust <- hclust(dist(wisc.pr$x[, 1:7]), method = "ward.D2")
@@ -226,7 +231,8 @@ plot(wisc.pr$x[,1:2], col=g)
 #benign = red, group 2
 ```
 
-##7. Prediction
+##Prediction
+
 We will use the `predict()` function that will take our PCA model from before and the "new cancer cell data" and project that data onto our PCA space.
 ```{r}
 new <- read.csv("new_samples.csv")
