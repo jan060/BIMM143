@@ -150,4 +150,3 @@ Finally lets output all these sequences to a FASTA file for further analysis wit
 ## Output a FASTA file for further analysis
 write.fasta(seqs=store.seqs, ids=mutant.names, file="subsequences.fa")
 ```
-
