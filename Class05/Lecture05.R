@@ -1,11 +1,10 @@
 ---
-#' title: "Class05 Data Exploration and Visualization in R"
+#' title: "Data Exploration and Visualization in R"
 #' author: "Julie Nguyen"
 #' output: github_document
 ---
-
-
-###Section 2A: Line Plot###
+#Customizing Plots
+##Line Plot
 weight <- read.table("Lecture05/bimm143_05_rstats/weight_chart.txt", header = TRUE)
 head(weight)
 plot(weight$Age, weight$Weight,type = "o", pch = 15,cex = 1.5, lwd = 2,ylim = c(2, 10), xlab = "Age (months)", ylab = "Weight (kg)", main = "Baby Weight with Age",col = "blue")
