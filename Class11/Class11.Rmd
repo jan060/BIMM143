@@ -1,0 +1,108 @@
+---
+title: "Structural Bioinformatics"
+author: "Julie Nguyen"
+date: "November 5, 2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Introduction to the RCSB Protein Data Bank (PDB)
+The PDB archive is the major repository of information about the 3D structures of large
+biological molecules, including proteins and nucleic acids. Understanding the shape of these
+molecules helps to understand how they work. This knowledge can be used to help deduce a
+structure's role in human health and disease, and in drug development. The structures in the
+PDB range from tiny proteins and bits of DNA or RNA to complex molecular machines like the
+ribosome composed of many chains of protein and RNA. 
+
+Download CSV file from PDB website and anaylze the PDB statistics.
+```{r}
+data <- read.csv("Data Export Summary.csv")
+```
+
+Determine the percentage of structures solved by X-Ray and Electron Microscopy.
+```{r}
+percent_structure <- round((data$Total/sum(data$Total)) * 100, 2)
+percent_structure
+```
+
+Also can you determine what proportion of structures are protein?
+```{r}
+proportion_protein <- round(sum(data$Proteins)/sum(data$Total) * 100, 2)
+proportion_protein
+```
+
+#Visualizing the HIV-1 protease structure
+In this section we will visualize the X-ray crystal structure of HIV-1 protease with a bound drug molecule indinavir (PDB ID: 1HSG). We will use the VMD molecular viewer to visually inspect the protein, the binding site, and the drug molecule.
+
+Water molecules normally have 3 atoms. Why do we see just one atom per water molecule
+in this structure?
+
+* In VMD, atoms can be colored by molecule instead of individual atoms.
+
+There is a conserved water molecule in the binding site. Can you identify this water
+molecule? What residue number does this water molecule have (see note below)?
+
+* Residue number 308.
+
+As you have hopefully observed HIV protease is a homodimer (i.e. it is composed of two
+identical chains). With the aid of the graphic display and the sequence viewer extension can you identify secondary structure elements that are likely to only form in the dimer rather than the monomer?
+
+* Many turns are associated at the center of the molecule, where the two subunits come togeher.
+
+#Introduction to Bio3D in R
+
+Bio3D is an R package for structural bioinformatics. Features include the ability to read, write, and analyze biomolecular structure, sequence, and dynamic trajectory data.
+
+Protein Data Bank files (or PDB files) are the most common format for the distribution and
+storage of high-resolution biomolecular coordinate data.
+
+Read and inspect the on-line file with PDB ID 1HSG. How many amino acid residues are there in this pdb object and what are the two non-protein residues?
+```{r}
+library(bio3d)
+protease <- read.pdb("1HSG")
+
+```
+
+* There are `r sum(protease$calpha)` residues and the two non-protein residues are water and MK1, the ligand.
+
+What type of R object is `protease$atom`?
+
+* This outputs a dataframe.
+
+#Atom selection
+The Bio3D `atom.select()` function is arguably one of the most challenging for newcomers to
+master. It is however central to PDB structure manipulation and analysis. At its most basic, this function operates on PDB structure objects (as created by `read.pdb()`) and returns the numeric indices of a selected atom subset. These indices can then be used to access the `$atom` and `$xyz` attributes of PDB structure related objects.
+
+Use the Bio3D write.pdb() function to write out a protein only PDB file for viewing in
+VMD. Also write out a second separate PDB file for the ligand with residue name MK1.
+
+###Protein only
+```{r}
+protein_only <- atom.select(protease, "protein", value = TRUE)
+write.pdb(protein_only, file = "1hsg_protein.pdb")
+trim.pdb(protease, inds = atom.select(protease, "protein"))
+```
+
+###Ligand
+```{r}
+ligand <- atom.select(protease, "ligand", value = TRUE)
+write.pdb(ligand, file = "1hsg_ligand.pdb")
+trim.pdb(protease, inds = atom.select(protease, "ligand"))
+```
+
+#3D structure viewing in R
+If you would like to try out 3D biomolecular structure viewing in R itself you can install the development version of the `bio3d.view` package. This package contains a set of new functions that have not yet made it into the main bio3d package. Their purpose is to enable quick 'sanity check' structure viewing without having to rely on opening written-out PDB files in programs such as VMD or PyMol.
+```{r}
+library("bio3d.view")
+view("1HSG", "overview", col="sse")
+```
+
+Here we use the view() function to visualize the results of a Normal Mode Analysis, a bioinformatics method that can predict the major motions of biomolecules.
+```{r}
+modes <- nma(protease)
+m7 <- mktrj(modes, mode=7, file="mode_7.pdb")
+view(m7, col=vec2color(rmsf(m7)))
+```
