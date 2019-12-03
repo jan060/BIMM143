@@ -80,6 +80,7 @@ res = results(dds, contrast=c("condition", "hoxa1_kd", "control_sirna"))
 ```{r}
 summary(res)
 ```
+
 ##Volcono plot
 
 ```{r}
@@ -137,7 +138,9 @@ library(pathview)
 ```
 
 ##KEGG Pathways
+
 The gageData package has pre-compiled databases mapping genes to KEGG pathways and GO terms for common organisms. `kegg.sets.hs` is a named list of 229 elements. Each element is a character vector of member gene Entrez IDs for a single KEGG pathway. (See also `go.sets.hs`). The `sigmet.idx.hs` is an index of numbers of signaling and metabolic pathways in `kegg.set.gs`. In other words, KEGG pathway include other types of pathway definitions, like "Global Map" and "Human Diseases", which may be undesirable in a particular pathway analysis. Therefore, `kegg.sets.hs[sigmet.idx.hs]` gives you the "cleaner" gene sets of signaling and metabolic pathways only.
+
 ```{r}
 library(gage)
 library(gageData)
@@ -158,7 +161,8 @@ names(foldchanges) = res$entrez
 head(foldchanges)
 ```
 
-The main gage() function requires a named vector of fold changes, where the names of the values are the Entrez gene IDs.
+The main `gage()` function requires a named vector of fold changes, where the names of the values are the Entrez gene IDs.
+
 ```{r}
 keggres = gage(foldchanges, gsets=kegg.sets.hs)
 ```
