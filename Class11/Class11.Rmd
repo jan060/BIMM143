@@ -10,12 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #Introduction to the RCSB Protein Data Bank (PDB)
+
 The PDB archive is the major repository of information about the 3D structures of large
-biological molecules, including proteins and nucleic acids. Understanding the shape of these
-molecules helps to understand how they work. This knowledge can be used to help deduce a
-structure's role in human health and disease, and in drug development. The structures in the
-PDB range from tiny proteins and bits of DNA or RNA to complex molecular machines like the
-ribosome composed of many chains of protein and RNA. 
+biological molecules, including proteins and nucleic acids. Understanding the shape of these molecules helps to understand how they work. This knowledge can be used to help deduce a structure's role in human health and disease, and in drug development. The structures in the PDB range from tiny proteins and bits of DNA or RNA to complex molecular machines like the ribosome composed of many chains of protein and RNA. 
 
 Download CSV file from PDB website and anaylze the PDB statistics.
 ```{r}
@@ -35,6 +32,7 @@ proportion_protein
 ```
 
 #Visualizing the HIV-1 protease structure
+
 In this section we will visualize the X-ray crystal structure of HIV-1 protease with a bound drug molecule indinavir (PDB ID: 1HSG). We will use the VMD molecular viewer to visually inspect the protein, the binding site, and the drug molecule.
 
 Water molecules normally have 3 atoms. Why do we see just one atom per water molecule
@@ -73,8 +71,8 @@ What type of R object is `protease$atom`?
 * This outputs a dataframe.
 
 #Atom selection
-The Bio3D `atom.select()` function is arguably one of the most challenging for newcomers to
-master. It is however central to PDB structure manipulation and analysis. At its most basic, this function operates on PDB structure objects (as created by `read.pdb()`) and returns the numeric indices of a selected atom subset. These indices can then be used to access the `$atom` and `$xyz` attributes of PDB structure related objects.
+
+The Bio3D `atom.select()` function is arguably one of the most challenging for newcomers to master. It is however central to PDB structure manipulation and analysis. At its most basic, this function operates on PDB structure objects (as created by `read.pdb()`) and returns the numeric indices of a selected atom subset. These indices can then be used to access the `$atom` and `$xyz` attributes of PDB structure related objects.
 
 Use the Bio3D write.pdb() function to write out a protein only PDB file for viewing in
 VMD. Also write out a second separate PDB file for the ligand with residue name MK1.
@@ -94,13 +92,14 @@ trim.pdb(protease, inds = atom.select(protease, "ligand"))
 ```
 
 #3D structure viewing in R
+
 If you would like to try out 3D biomolecular structure viewing in R itself you can install the development version of the `bio3d.view` package. This package contains a set of new functions that have not yet made it into the main bio3d package. Their purpose is to enable quick 'sanity check' structure viewing without having to rely on opening written-out PDB files in programs such as VMD or PyMol.
 ```{r}
 library("bio3d.view")
 view("1HSG", "overview", col="sse")
 ```
 
-Here we use the view() function to visualize the results of a Normal Mode Analysis, a bioinformatics method that can predict the major motions of biomolecules.
+Here we use the `view(`) function to visualize the results of a Normal Mode Analysis, a bioinformatics method that can predict the major motions of biomolecules.
 ```{r}
 modes <- nma(protease)
 m7 <- mktrj(modes, mode=7, file="mode_7.pdb")

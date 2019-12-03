@@ -6,6 +6,8 @@ November 5, 2019
 Introduction to the RCSB Protein Data Bank (PDB)
 ================================================
 
+The PDB archive is the major repository of information about the 3D structures of large biological molecules, including proteins and nucleic acids. Understanding the shape of these molecules helps to understand how they work. This knowledge can be used to help deduce a structure's role in human health and disease, and in drug development. The structures in the PDB range from tiny proteins and bits of DNA or RNA to complex molecular machines like the ribosome composed of many chains of protein and RNA.
+
 Download CSV file from PDB website and anaylze the PDB statistics.
 
 ``` r
@@ -131,5 +133,36 @@ trim.pdb(protease, inds = atom.select(protease, "ligand"))
 3D structure viewing in R
 =========================
 
-Working with multiple PDB files
-===============================
+If you would like to try out 3D biomolecular structure viewing in R itself you can install the development version of the `bio3d.view` package. This package contains a set of new functions that have not yet made it into the main bio3d package. Their purpose is to enable quick 'sanity check' structure viewing without having to rely on opening written-out PDB files in programs such as VMD or PyMol.
+
+``` r
+library("bio3d.view")
+view("1HSG", "overview", col="sse")
+```
+
+    ##   Note: Accessing on-line PDB file
+
+    ## Warning in get.pdb(file, path = tempdir(), verbose = FALSE): /var/folders/
+    ## 2_/lp7311hn4gq93xdwjh36fl380000gn/T//Rtmpydwze5/1HSG.pdb exists. Skipping
+    ## download
+
+    ## Computing connectivity from coordinates...
+
+Here we use the `view(`) function to visualize the results of a Normal Mode Analysis, a bioinformatics method that can predict the major motions of biomolecules.
+
+``` r
+modes <- nma(protease)
+```
+
+    ## Warning in nma.pdb(protease): Possible multi-chain structure or missing in-structure residue(s) present
+    ##   Fluctuations at neighboring positions may be affected.
+
+    ##  Building Hessian...     Done in 0.031 seconds.
+    ##  Diagonalizing Hessian...    Done in 0.327 seconds.
+
+``` r
+m7 <- mktrj(modes, mode=7, file="mode_7.pdb")
+view(m7, col=vec2color(rmsf(m7)))
+```
+
+    ## Potential all C-alpha atom structure(s) detected: Using calpha.connectivity()
