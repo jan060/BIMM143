@@ -99,4 +99,4 @@ Quantitatively how good are the docks? Is the crystal binding mode reproduced wi
 
 How would you determine the RMSD for heavy atoms only (i.e. non hydrogen atoms)?
 
-\*Using `atom.select()` with the selection string "noh" will choose non hydrogen atoms.
+-   Using `atom.select()` with the selection string "noh" will choose non hydrogen atoms.

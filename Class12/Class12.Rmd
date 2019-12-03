@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #In-silico docking of drugs to HIV-1 protease
 
 We will continue with the structure of the HIV-1 protease and its inhibitor, indinavir (PDB ID: 1HSG), and computationally dock drug molecules into the binding site of HIV-1 protease to see how well bioinformatics-based docking can reproduce the crystallographically observed binding pose.
+
 ```{r}
 library(bio3d)
 protease <- get.pdb("1hsg")
@@ -23,6 +24,7 @@ correspond to and how would you get a listing of all `resid` values in this stru
 * The two non-protein resid values are HOH and MK1. `resid` corresponds to "residue id" and you can access all `resid` with `pdb$atom$resid`.
 
 We want to trim the PDB file so that we produce a protein-only PDB file and a drug (ligand) only PDB file. The `trim.pdb` function or `atom.select` function allows you to extract protein-only and ligand-only objects. By using `write.pdb`, these files will automatically be downloaded onto your R studio workspace.  
+
 ```{r}
 protein <- atom.select(hiv, "protein", value = TRUE)
 write.pdb(protein, file="1hsg_protein.pdb")
@@ -50,6 +52,7 @@ For this section, we will use the program called Autodock Vina [4]. Autodock Vin
 docking program that requires minimal user intervention and is often employed for highthroughput virtual screening. We will run it from the command line.
 
 In order to visualize the docks and compare to the crystal conformation of the ligand we will process the `all.pdbqt` to a PDB format file that can be loaded into VMD.
+
 ```{r}
 res <- read.pdb("all.pdbqt", multi=TRUE)
 write.pdb(res, "results.pdb")
@@ -69,6 +72,7 @@ between each of the docking results and the known crystal structure using the bi
 ori <- read.pdb("ligand.pdbqt")
 rmsd(ori, res)
 ```
+
 Quantitatively how good are the docks? Is the crystal binding mode reproduced within 1Å
 RMSD for all atoms?
 
